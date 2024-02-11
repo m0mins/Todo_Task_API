@@ -56,3 +56,18 @@ class UserLoginAPIView(APIView):
         
         else:
             return Response({'message': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+        
+#Create and List 
+class TodoItemListCreate(generics.ListCreateAPIView):
+    queryset = TodoItem.objects.all()
+    serializer_class = TodoItemSerializer
+    permission_classes = [IsAuthenticated,IsAdminOrStaff]
+
+    def perform_create(self, serializer):
+        current_user = self.request
+        user_role = UserRole.objects.get(user=current_user.user)
+        print(user_role)
+
+
+        # Pass request to serializer's context
+        serializer.save(created_by=user_role)
