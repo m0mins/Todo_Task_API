@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import generics
 from .permissions import IsAdminOrStaff
 
+#Registration
 class UserRegistrationAPIView(APIView):
     def post(self, request):
         data = request.data
@@ -36,3 +37,22 @@ class UserRegistrationAPIView(APIView):
             #    'message': 'User registered successfully'})
         except IntegrityError:
             return Response({'message': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+#Login
+class UserLoginAPIView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'message': 'Login successful',
+                'access': str(refresh.access_token), 
+                })
+           
+        
+        else:
+            return Response({'message': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
