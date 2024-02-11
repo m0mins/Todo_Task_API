@@ -6,10 +6,10 @@ __pycache__/
 # Virtual Environment
 venv/
 env/
-
 # IDE/Editor Files
 .vscode/
 .idea/
+.env/
 *.swp
 
 # Django Migration Files
