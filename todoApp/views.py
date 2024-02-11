@@ -71,3 +71,8 @@ class TodoItemListCreate(generics.ListCreateAPIView):
 
         # Pass request to serializer's context
         serializer.save(created_by=user_role)
+#Retrive update and Delete
+class TodoItemRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TodoItem.objects.all()
+    serializer_class = TodoItemSerializer
+    permission_classes = [IsAdminOrStaff]
