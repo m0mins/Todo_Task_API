@@ -9,7 +9,7 @@ env/
 # IDE/Editor Files
 .vscode/
 .idea/
-
+.envs
 *.swp
 
 # Django Migration Files
