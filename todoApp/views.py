@@ -12,6 +12,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.decorators import login_required
 from rest_framework import generics
 from .permissions import IsAdminOrStaff
+from rest_framework.filters import SearchFilter
 
 #Registration
 class UserRegistrationAPIView(APIView):
@@ -62,6 +63,8 @@ class TodoItemListCreate(generics.ListCreateAPIView):
     queryset = TodoItem.objects.all()
     serializer_class = TodoItemSerializer
     permission_classes = [IsAuthenticated,IsAdminOrStaff]
+    filter_backends=[SearchFilter]
+    search_fields=['title']
 
     def perform_create(self, serializer):
         current_user = self.request
@@ -76,3 +79,4 @@ class TodoItemRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = TodoItem.objects.all()
     serializer_class = TodoItemSerializer
     permission_classes = [IsAdminOrStaff]
+    
