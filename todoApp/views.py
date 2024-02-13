@@ -63,8 +63,10 @@ class TodoItemListCreate(generics.ListCreateAPIView):
     queryset = TodoItem.objects.all()
     serializer_class = TodoItemSerializer
     permission_classes = [IsAuthenticated,IsAdminOrStaff]
-    filter_backends=[SearchFilter]
-    search_fields=['title']
+
+    #for filter
+    #filter_backends=[SearchFilter]
+    #search_fields=['title']
 
     def perform_create(self, serializer):
         current_user = self.request
