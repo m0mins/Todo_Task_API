@@ -4,7 +4,6 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
 from django.db import IntegrityError
-
 from .models import TodoItem, UserRole
 from .serializers import TodoItemSerializer,UserRoleSerializer
 from django.contrib.auth.models import User
@@ -14,6 +13,7 @@ from rest_framework import generics
 from .permissions import IsAdminOrStaff
 from rest_framework.filters import SearchFilter
 
+from todoApp.custom_pagination import CustomPagination
 #Registration
 class UserRegistrationAPIView(APIView):
     def post(self, request):
@@ -62,7 +62,9 @@ class UserLoginAPIView(APIView):
 class TodoItemListCreate(generics.ListCreateAPIView):
     queryset = TodoItem.objects.all()
     serializer_class = TodoItemSerializer
-    permission_classes = [IsAuthenticated,IsAdminOrStaff]
+    #permission_classes = [IsAuthenticated,IsAdminOrStaff]
+
+    pagination_class=CustomPagination
 
     #for filter
     #filter_backends=[SearchFilter]
