@@ -62,7 +62,7 @@ class UserLoginAPIView(APIView):
 class TodoItemListCreate(generics.ListCreateAPIView):
     queryset = TodoItem.objects.all()
     serializer_class = TodoItemSerializer
-    #permission_classes = [IsAuthenticated,IsAdminOrStaff]
+    permission_classes = [IsAuthenticated,IsAdminOrStaff]
 
     pagination_class=CustomPagination
 
