@@ -1,5 +1,5 @@
 # Create
-1. Create a virtual environment with python 3.10.6
+1. Create a virtual environment with python 3.10.12
 2. Create .env with the same configuration of settings and given database requirements name
 
 # Activation
