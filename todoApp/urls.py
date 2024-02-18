@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .views import TodoItemListCreate,TodoItemRetrieveUpdateDestroy
 from .views import UserRegistrationAPIView,UserLoginAPIView
 from rest_framework_simplejwt.views import TokenVerifyView
+from todoApp import views
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -23,6 +24,7 @@ urlpatterns = [
     path('login/', UserLoginAPIView.as_view(), name='user-login'),
     path('todos/', TodoItemListCreate.as_view(), name='todo-list'),
     path('todos/<int:pk>/', TodoItemRetrieveUpdateDestroy.as_view(), name='todo-detail'),
+    path('create_todo/',views.create_todo,name='create_todo'),
 
 
 ]

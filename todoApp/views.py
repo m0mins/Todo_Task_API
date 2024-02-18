@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -57,7 +58,30 @@ class UserLoginAPIView(APIView):
         
         else:
             return Response({'message': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def create_todo(request):
+ 
+    datar = request.GET.get('role')
+
+    print("###########################")
+    print(datar)
+    #role2=data.users.role
+    role=UserRole.objects.filter(role=datar)
+    print("####################************")
+    print(role)
+    if role is not None:
+        return Response({"Message":"Already exist"})
         
+    else:
+        obj=TodoItemSerializer(instance=role ,data=request.data)
+        if obj.is_valid():
+            obj.save()
+            return Response({"Message":"Successful"})
+        
+
+
+
 #Create and List 
 class TodoItemListCreate(generics.ListCreateAPIView):
     queryset = TodoItem.objects.all()
@@ -73,7 +97,10 @@ class TodoItemListCreate(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         current_user = self.request
         user_role = UserRole.objects.get(user=current_user.user)
+        print("#############################")
         print(user_role)
+        print("#############################")
+
 
 
         # Pass request to serializer's context
