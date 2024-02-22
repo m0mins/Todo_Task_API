@@ -62,10 +62,11 @@ class UserLoginAPIView(APIView):
 @api_view(['POST'])
 def create_todo(request):
  
-    datar = request.GET.get('role')
+    datar = request.data
+
 
     print("###########################")
-    print(datar)
+    print(datar.role)
     #role2=data.users.role
     role=UserRole.objects.filter(role=datar)
     print("####################************")
